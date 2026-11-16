@@ -227,6 +227,41 @@
 </tr>
 </tbody>
 </table></div>
+<p>Соотношение трёх ролей по трём осям:</p>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Ось</th>
+<th>Enterprise architect</th>
+<th>Solution architect</th>
+<th>Technical (software) architect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Focus: сколько программ и проектов</td>
+<td>Все программы организации</td>
+<td>Одна программа или одно решение</td>
+<td>Одна или несколько, в пределах своей технологии</td>
+</tr>
+<tr>
+<td>Lifecycle disciplines</td>
+<td>Все</td>
+<td>Все: stakeholders, requirements, архитектура, реализация, инфраструктура, поддержка</td>
+<td>Одна: реализация на конкретном стеке</td>
+</tr>
+<tr>
+<td>Level of detail</td>
+<td>Low</td>
+<td>Medium</td>
+<td>High</td>
+</tr>
+</tbody>
+</table></div>
+<pre class="mermaid">flowchart LR
+    EA[Enterprise architect&lt;br/&gt;strategy, вся организация&lt;br/&gt;detail: low] --&gt; SA[Solution architect&lt;br/&gt;одно решение, весь lifecycle&lt;br/&gt;technology breadth, detail: medium] --&gt; TA[Technical architect&lt;br/&gt;одна технология&lt;br/&gt;technology depth, detail: high]
+</pre>
+<p>Стрелка = направление, в котором сужается scope и растёт детальность. Solution architect стоит в середине: он переводит стратегию в конкретное решение и ставит рамки для технического дизайна.</p>
 <p>Единого определения solution architecture нет. Рабочее: архитектура решения конкретной проблемы бизнеса. Enterprise architect оптимизирует и стандартизирует системы всей организации. Solution architect проектирует и доводит до результата одно решение.</p>
 <h3>5. Меняется вопрос, не уровень знаний</h3>
 <div class="table"><table>
