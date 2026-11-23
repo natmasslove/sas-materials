@@ -37,58 +37,7 @@
 </tr>
 </tbody>
 </table></div>
-<p>Составные части на уровне enterprise. Solution architect их не создаёт, но читает: из них берутся business goals.</p>
-<div class="table"><table>
-<thead>
-<tr>
-<th>Область</th>
-<th>Вопрос</th>
-<th>Типовые артефакты</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Strategy</td>
-<td>Куда идёт организация?</td>
-<td>Balanced Scorecard, Hoshin Kanri</td>
-</tr>
-<tr>
-<td>Capability</td>
-<td>Что бизнес делает? (не «как»)</td>
-<td>Capability map, business services, business functions</td>
-</tr>
-<tr>
-<td>Value</td>
-<td>Как создаётся ценность для stakeholders?</td>
-<td>Value stream, value proposition, Business Model Canvas</td>
-</tr>
-<tr>
-<td>Information</td>
-<td>Какими понятиями оперирует бизнес?</td>
-<td>Information map</td>
-</tr>
-<tr>
-<td>Organization</td>
-<td>Кто за что отвечает?</td>
-<td>Organization map</td>
-</tr>
-</tbody>
-</table></div>
-<p>Место среди архитектурных доменов (TOGAF): business architecture задаёт context для остальных.</p>
-<pre class="mermaid">flowchart TB
-    B[Business architecture] --&gt; D[Data architecture]
-    B --&gt; A[Application architecture]
-    D --&gt; T[Technology architecture]
-    A --&gt; T
-</pre>
 <p>В рамках одного решения работаем с тремя объектами: business goals, stakeholders, requirements.</p>
-<div class="discuss">
-<p><strong>Обсудить</strong></p>
-<ol>
-<li>Возьмите ваш текущий проект. Назовите одну business capability, которую он поддерживает. Одной фразой, без названий систем.</li>
-<li>Кто в вашем проекте делает работу business analyst? Какую часть этой работы делаете вы?</li>
-</ol>
-</div>
 <h3>2. Stakeholders: кто это и как их найти</h3>
 <p>Stakeholder = человек, группа или организация, которые влияют на решение, затронуты им или считают себя затронутыми. Третья часть определения важна: достаточно восприятия.</p>
 <pre class="mermaid">flowchart LR
