@@ -38,5 +38,8 @@ th, td { border: 1px solid var(--line); padding: 6px 12px; text-align: left; ver
 th { background: var(--soft); }
 code { background: var(--soft); padding: 0.15em 0.35em; border-radius: 4px; font-size: 0.9em; }
 pre.mermaid { text-align: center; overflow-x: auto; margin: 1.2em 0; }
+.discuss { margin: 1.2em 0; padding: 8px 16px; background: var(--soft); border-left: 4px solid var(--link); }
+.discuss p { margin: 0.3em 0; }
+.discuss ol { margin: 0.3em 0; padding-left: 1.4em; }
 .toc { padding-left: 1.2em; font-size: 1.1em; }
 .toc li { margin: 0.4em 0; }
