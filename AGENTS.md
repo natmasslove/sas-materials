@@ -102,8 +102,7 @@
 
 | Материал | Статус |
 |---|---|
-| Модули 1, 2 | Написаны, опубликованы (`module-01.html`, `module-02.html`). Автор изучает, возможны правки. Модуль 1 расширен по референсу `Module1_Intro` (в `main`) |
-| Модуль 2A | Параллельная версия модуля 2 по референсу `Module2_BusinessArchitecture` (`module-02a.html`). Позже сравнить с модулем 2 и объединить |
+| Модули 1, 2 | Написаны (`module-01.html`, `module-02.html`). Модуль 1 расширен по референсу `Module1_Intro`. Модуль 2 = Business Architecture, написан по референсу `Module2_BusinessArchitecture`; прежняя версия (Context и business requirements) удалена, есть в git history |
 | Шпаргалка `framework.html` | Не написана |
 | Модули 3–10 | Не написаны |
 
