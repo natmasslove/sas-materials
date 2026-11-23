@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Модуль 2A. Business Architecture — Solution Architecture School</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav><a href="index.html">← Все модули</a> <a href="module-01.html">‹ Назад</a></nav>
+<main>
+<h1>Модуль 2A. Business Architecture</h1>
+<p>Шаги framework: 1 Context, 2 Requirements.</p>
+<h2>Зачем</h2>
+<p>Архитектор с инженерным прошлым начинает с технологий и мало смотрит на requirements. Ошибка на уровне business architecture ведёт весь дизайн в неверную сторону, и исправить её позже намного дороже, чем ошибку в технологии. Модуль даёт три опоры: кто такие stakeholders, какие бывают requirements, какими техниками то и другое добывают.</p>
+<h2>Ключевые идеи</h2>
+<h3>1. Business Architecture: два уровня</h3>
+<p>Термин используют в двух значениях. В программе нужен второй.</p>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Уровень</th>
+<th>Что значит</th>
+<th>Кто делает</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enterprise architecture</td>
+<td>Blueprint организации: связывает стратегию с тем, что бизнес реально делает. Даёт context для слоёв данных, приложений и технологий</td>
+<td>Enterprise / business architect</td>
+</tr>
+<tr>
+<td>Solution architecture</td>
+<td>Анализ business goals и requirements одного решения, работа со stakeholders</td>
+<td>Business analyst и solution architect вместе</td>
+</tr>
+</tbody>
+</table></div>
+<p>Составные части на уровне enterprise. Solution architect их не создаёт, но читает: из них берутся business goals.</p>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Область</th>
+<th>Вопрос</th>
+<th>Типовые артефакты</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Strategy</td>
+<td>Куда идёт организация?</td>
+<td>Balanced Scorecard, Hoshin Kanri</td>
+</tr>
+<tr>
+<td>Capability</td>
+<td>Что бизнес делает? (не «как»)</td>
+<td>Capability map, business services, business functions</td>
+</tr>
+<tr>
+<td>Value</td>
+<td>Как создаётся ценность для stakeholders?</td>
+<td>Value stream, value proposition, Business Model Canvas</td>
+</tr>
+<tr>
+<td>Information</td>
+<td>Какими понятиями оперирует бизнес?</td>
+<td>Information map</td>
+</tr>
+<tr>
+<td>Organization</td>
+<td>Кто за что отвечает?</td>
+<td>Organization map</td>
+</tr>
+</tbody>
+</table></div>
+<p>Место среди архитектурных доменов (TOGAF): business architecture задаёт context для остальных.</p>
+<pre class="mermaid">flowchart TB
+    B[Business architecture] --&gt; D[Data architecture]
+    B --&gt; A[Application architecture]
+    D --&gt; T[Technology architecture]
+    A --&gt; T
+</pre>
+<p>В рамках одного решения работаем с тремя объектами: business goals, stakeholders, requirements.</p>
+<h3>2. Stakeholders: кто это и как их найти</h3>
+<p>Stakeholder = человек, группа или организация, которые влияют на решение, затронуты им или считают себя затронутыми. Третья часть определения важна: достаточно восприятия.</p>
+<pre class="mermaid">flowchart LR
+    S[Stakeholder] -- входит в --&gt; G[Group]
+    S -- имеет --&gt; C[Concerns]
+    S -- имеет --&gt; R[Requirements]
+    S -- имеет --&gt; VP[Viewpoint]
+    VP -- задаёт --&gt; V[View]
+</pre>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Термин</th>
+<th>Смысл</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Concerns</td>
+<td>Что беспокоит stakeholder в решении: проблемы, risks, constraints, польза, влияние на его работу</td>
+</tr>
+<tr>
+<td>Viewpoint</td>
+<td>Откуда смотрим: набор правил, нотаций и моделей для одного типа представления</td>
+</tr>
+<tr>
+<td>View</td>
+<td>Что видим: архитектура системы с точки зрения конкретных stakeholders и их concerns</td>
+</tr>
+</tbody>
+</table></div>
+<p>Принцип: одна модель не может показать сложную систему так, чтобы её поняли все stakeholders. Отсюда несколько views.</p>
+<p>Управление stakeholders — четыре стадии. На архитектуру сильнее всего влияет первая.</p>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Стадия</th>
+<th>Что делаем</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identify</td>
+<td>Найти и классифицировать. Выявить concerns, requirements, viewpoints. Результат: stakeholder catalog и map</td>
+</tr>
+<tr>
+<td>Plan</td>
+<td>Определить стратегию взаимодействия с каждой группой</td>
+</tr>
+<tr>
+<td>Manage</td>
+<td>Общаться, оправдывать ожидания, решать проблемы по мере появления</td>
+</tr>
+<tr>
+<td>Control</td>
+<td>Следить за отношениями, менять стратегию</td>
+</tr>
+</tbody>
+</table></div>
+<p>Техники идентификации:</p>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Техника</th>
+<th>Для чего</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Brainstorming</td>
+<td>Первый список stakeholders и их ролей</td>
+</tr>
+<tr>
+<td>Interviews, workshops</td>
+<td>Узнать больше о группе от её представителей</td>
+</tr>
+<tr>
+<td>Mind mapping</td>
+<td>Найти возможных stakeholders и связи между ними</td>
+</tr>
+<tr>
+<td>Organizational modelling</td>
+<td>Найти подразделения с особыми интересами, которых затронет изменение</td>
+</tr>
+<tr>
+<td>Process modelling</td>
+<td>Сгруппировать stakeholders по системам, которые поддерживают их процессы</td>
+</tr>
+<tr>
+<td>Stakeholder list, map</td>
+<td>Показать отношение stakeholders к решению и друг к другу</td>
+</tr>
+<tr>
+<td>Survey / questionnaire</td>
+<td>Найти общие свойства группы</td>
+</tr>
+</tbody>
+</table></div>
+<p>Вопросы для поиска (questionnaire):</p>
+<ul>
+<li>Кто участвует в проекте прямо? Кто косвенно?</li>
+<li>Кого затронет проект? Кого затронет его результат?</li>
+<li>Кто выигрывает и кто теряет при успехе?</li>
+<li>Кто хочет успеха проекта, а кто нет?</li>
+<li>Кто пользуется результатом? Кто поставщики?</li>
+<li>Кто имеет власть обеспечить успех? Кто может проект остановить?</li>
+</ul>
+<p>Оси классификации:</p>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Ось</th>
+<th>Значения</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Роль</td>
+<td>Sponsor, customer, end user, subject matter expert, supplier, project team</td>
+</tr>
+<tr>
+<td>Internal / external</td>
+<td>Участвует в разработке / не участвует (заказчики, поставщики)</td>
+</tr>
+<tr>
+<td>Подразделение</td>
+<td>Executive (CxO), operations, delivery, procurement</td>
+</tr>
+</tbody>
+</table></div>
+<p>Результат — stakeholder registry. Строгого формата нет. Минимум колонок:</p>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Role</th>
+<th>Group</th>
+<th>Main concerns</th>
+<th>Views</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3>3. Приоритет stakeholders и views для них</h3>
+<p>Времени на всех поровну нет. Power / interest matrix задаёт, сколько внимания получает каждый.</p>
+<div class="table"><table>
+<thead>
+<tr>
+<th></th>
+<th>Interest: low</th>
+<th>Interest: high</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Power: high</strong></td>
+<td><strong>Keep satisfied.</strong> Консультироваться, закрывать их потребности, поднимать интерес. Общение на высоком уровне</td>
+<td><strong>Key players.</strong> Вовлекать регулярно. Основные усилия идут сюда</td>
+</tr>
+<tr>
+<td><strong>Power: low</strong></td>
+<td><strong>Minimal effort.</strong> Общие рассылки</td>
+<td><strong>Keep informed.</strong> Спрашивать мнение, показывать интерес к их нуждам. Возможные союзники изменения</td>
+</tr>
+</tbody>
+</table></div>
+<p>Каждому stakeholder — свои views. Колонка «Views» в registry заполняется после приоритизации.</p>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Stakeholder</th>
+<th>Полезные views</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CEO</td>
+<td>Business motivation diagram, business footprint diagram</td>
+</tr>
+<tr>
+<td>Program manager</td>
+<td>Roadmap, WBS</td>
+</tr>
+<tr>
+<td>Developer</td>
+<td>Component diagram, class diagram</td>
+</tr>
+</tbody>
+</table></div>
+<h3>4. RACI: кто за что отвечает</h3>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Буква</th>
+<th>Роль</th>
+<th>Смысл</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R</td>
+<td>Responsible</td>
+<td>Выполняет работу</td>
+</tr>
+<tr>
+<td>A</td>
+<td>Accountable</td>
+<td>Отвечает за результат, принимает решение</td>
+</tr>
+<tr>
+<td>C</td>
+<td>Consulted</td>
+<td>Даёт мнение или информацию. Общение двустороннее. Часто это subject matter expert</td>
+</tr>
+<tr>
+<td>I</td>
+<td>Informed</td>
+<td>Получает статус и результат. Общение одностороннее</td>
+</tr>
+</tbody>
+</table></div>
+<p>Форма: строки — активности, колонки — роли.</p>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Активность</th>
+<th>Роль 1</th>
+<th>Роль 2</th>
+<th>Роль 3</th>
+<th>Роль 4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Активность 1</td>
+<td>R</td>
+<td>A</td>
+<td>C</td>
+<td>I</td>
+</tr>
+<tr>
+<td>Активность 2</td>
+<td>A</td>
+<td>R</td>
+<td>I</td>
+<td>C</td>
+</tr>
+</tbody>
+</table></div>
+<p>Правила:</p>
+<ul>
+<li>В строке ровно один A.</li>
+<li>Матрицу строят после того, как найдены все stakeholders.</li>
+<li>Шаблон RACI — только старт. Каждый проект даёт отклонения: модель взаимодействия с заказчиком, бюджет и срок, уровень людей.</li>
+<li>Каждое отклонение нужно закрыть: кто-то берёт на себя нетипичную для роли ответственность. Пример: на стадии MVP нет tech lead и functional lead → архитектор становится responsible за status report. Discovery показал нужду в новой роли → в матрице появляется data architect.</li>
+</ul>
+<h3>5. Requirements: четыре вида и иерархия</h3>
+<pre class="mermaid">flowchart TB
+    BR[Business requirements] --&gt; SR[Stakeholder requirements]
+    SR --&gt; SOL[Solution requirements]
+    SOL --&gt; FR[Functional requirements]
+    SOL --&gt; NFR[Non-functional requirements]
+    SR --&gt; TR[Transition requirements]
+</pre>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Вид</th>
+<th>Вопрос</th>
+<th>Пример</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Business requirements</td>
+<td>Зачем начато изменение? Цели и ожидаемый результат для организации, направления или инициативы</td>
+<td>Рост удержания клиентов</td>
+</tr>
+<tr>
+<td>Stakeholder requirements</td>
+<td>Что нужно stakeholders, чтобы business requirements были достигнуты? Мост между бизнесом и решением</td>
+<td>Онлайн-бронирование через сайт и мобильное приложение</td>
+</tr>
+<tr>
+<td>Solution requirements: functional</td>
+<td>Что решение делает: поведение и информация, которой оно управляет</td>
+<td>Автоматически предлагать клиенту подходящие покупки</td>
+</tr>
+<tr>
+<td>Solution requirements: non-functional</td>
+<td>При каких условиях решение остаётся пригодным, какими качествами обладает. Синонимы: quality attribute requirements, quality of service requirements. Подробно — модуль 3</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Transition requirements</td>
+<td>Что нужно для перехода из текущего состояния в будущее. Временные: после перехода не нужны</td>
+<td>Миграция и конвертация данных, права доступа, обучение пользователей, перенос инфраструктуры</td>
+</tr>
+</tbody>
+</table></div>
+<p>Business requirements имеют свою структуру:</p>
+<pre class="mermaid">flowchart LR
+    D[Business driver] --&gt; G[Business goal] --&gt; O[Business objective]
+</pre>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Уровень</th>
+<th>Смысл</th>
+<th>Пример</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Business driver</td>
+<td>Что вызывает и питает изменение. Хороший синоним — «проблема»</td>
+<td>Лучшие на рынке программы удержания и лояльности</td>
+</tr>
+<tr>
+<td>Business goal</td>
+<td>Конечное состояние, которого хочет достичь stakeholder</td>
+<td>Единый профиль клиента. Таргетированный маркетинг на данных</td>
+</tr>
+<tr>
+<td>Business objective</td>
+<td>Goal в числах и со сроком</td>
+<td>Удержание клиентов +15% к заданному году</td>
+</tr>
+</tbody>
+</table></div>
+<p>Один driver даёт несколько goals, один goal — несколько objectives. Абстрактную формулировку проверять по SMART.</p>
+<p>Traceability: requirements и дизайн разных уровней должны быть связаны между собой. Связь нужна для двух вещей: видеть, что уровни согласованы, и оценить эффект изменения на одном уровне для остальных. Solution requirement без пути вверх к business requirement — кандидат на удаление.</p>
+<h3>6. RAID: что записать рядом с requirements</h3>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Буква</th>
+<th>Что это</th>
+<th>Отличие</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Risks</td>
+<td>Возможные события с отрицательным эффектом для решения. У каждого вероятность и эффект</td>
+<td>Может случиться в будущем</td>
+</tr>
+<tr>
+<td>Assumptions</td>
+<td>То, что приняли за истину, чтобы двигаться дальше</td>
+<td>Если неверно, эффект отрицательный. Нужно следить и проверять</td>
+</tr>
+<tr>
+<td>Issues</td>
+<td>Проблемы, которые есть сегодня</td>
+<td>Risk, который уже случился</td>
+</tr>
+<tr>
+<td>Dependencies</td>
+<td>Связи: результат одной работы — обязательный вход другой</td>
+<td>Между частями решения и между проектами</td>
+</tr>
+</tbody>
+</table></div>
+<p>Работа с risks — шаг 7 framework. Здесь RAID нужен как журнал: не терять то, что всплыло при сборе requirements.</p>
+<h3>7. Techniques: набор инструментов</h3>
+<p>Техник бизнес-анализа десятки. Знать все не нужно. Нужно знать, какие группы есть и когда какая помогает.</p>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Группа</th>
+<th>Техники</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Уровень организации</td>
+<td>Balanced Scorecard, Business Model Canvas, business capability analysis, benchmarking and market analysis, organizational modelling, business cases</td>
+</tr>
+<tr>
+<td>Eliciting, collaboration</td>
+<td>Brainstorming, interviews, workshops, focus groups, survey / questionnaire, collaborative games, document analysis</td>
+</tr>
+<tr>
+<td>Analysis</td>
+<td>Root cause analysis, SWOT, decision analysis, financial analysis, business rules analysis, process analysis, interface analysis, prioritization, estimation, metrics and KPIs, acceptance and evaluation criteria</td>
+</tr>
+<tr>
+<td>Modeling</td>
+<td>Process modelling, data modelling, scope modelling, state modelling, decision modelling, prototyping, use cases and scenarios, user stories</td>
+</tr>
+<tr>
+<td>Documentation</td>
+<td>Glossary, data dictionary, data flow diagrams, functional decomposition</td>
+</tr>
+</tbody>
+</table></div>
+<p>Техники, которые разбираем на модуле:</p>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Техника</th>
+<th>Вопрос</th>
+<th>Суть</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Acceptance and evaluation criteria</td>
+<td>Как понять, что решение подходит?</td>
+<td>Измеримые и проверяемые критерии. Дают объективное сравнение решений и вариантов дизайна</td>
+</tr>
+<tr>
+<td>Brainstorming</td>
+<td>Какие есть идеи?</td>
+<td>Много идей без оценки → темы для дальнейшего анализа</td>
+</tr>
+<tr>
+<td>Business Model Canvas</td>
+<td>Как организация создаёт, поставляет и получает ценность?</td>
+<td>Одна страница: клиенты, ценность, каналы, ресурсы, затраты, доходы</td>
+</tr>
+<tr>
+<td>Root cause analysis</td>
+<td>Почему возникла проблема?</td>
+<td>Три действия: problem statement → сбор данных (природа, масштаб, место, время) → поиск причин. Reactive: проблема уже есть. Proactive: ищем слабые места заранее. Инструмент: fishbone diagram</td>
+</tr>
+<tr>
+<td>SWOT</td>
+<td>Где мы сильны и слабы, что вокруг?</td>
+<td>Strengths и weaknesses — внутренние факторы. Opportunities и threats — внешние</td>
+</tr>
+<tr>
+<td>Use cases and scenarios</td>
+<td>Как actor достигает цели через решение?</td>
+<td>Include: общая функциональность нескольких use cases. Extend: добавочное поведение; базовый use case работает и без него</td>
+</tr>
+<tr>
+<td>Decision analysis</td>
+<td>Какой вариант выбрать при неопределённости?</td>
+<td>Процесс: problem statement → варианты → оценка → решение. Инструменты (decision matrix, decision tree) — модуль 9</td>
+</tr>
+</tbody>
+</table></div>
+<p>Fishbone diagram: проблема в «голове», категории причин (люди, процессы, инструменты, правила) — «кости», более глубокие причины — ветки. Результат = только возможные причины. Реальную причину подтверждают данными.</p>
+<h2>Пример: Data Engineering</h2>
+<p>Запрос: единая платформа отчётности. Driver: отделы приносят на совещание разные цифры по одной метрике. Goal: один источник правды для метрик продаж. Objective: расхождений между отчётами нет, отчёт готов к 8:00, срок — конец года. Stakeholders: владельцы систем-источников попадают в «keep satisfied» (power высокий, interest низкий) — о них забывают чаще всего. Transition requirements: загрузка исторических данных, параллельная работа старых и новых отчётов до сверки. Assumption в RAID: источники дают выгрузку до 6:00.</p>
+<h2>Типовые ошибки</h2>
+<div class="table"><table>
+<thead>
+<tr>
+<th>Ошибка</th>
+<th>Почему возникает</th>
+<th>Что делать</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Начинать с технологий</td>
+<td>Сильный опыт разработки</td>
+<td>Сначала business goals, stakeholders, requirements</td>
+</tr>
+<tr>
+<td>Недооценка ошибок этого уровня</td>
+<td>Кажется, что «потом поправим»</td>
+<td>Помнить: ошибка здесь меняет направление всего дизайна</td>
+</tr>
+<tr>
+<td>Путаница в ответственности stakeholders</td>
+<td>Никто её не записал</td>
+<td>RACI под конкретный проект, не шаблон</td>
+</tr>
+<tr>
+<td>Assumptions вместо вопросов</td>
+<td>Спросить некого или некогда. Особенно на presales</td>
+<td>Сначала вопрос. Assumption — только если ответа нет, и запись в RAID</td>
+</tr>
+<tr>
+<td>Ждать готовых requirements</td>
+<td>Заказчик сам их не знает</td>
+<td>Добывать: interviews, workshops, document analysis</td>
+</tr>
+<tr>
+<td>Несколько A в одной строке RACI</td>
+<td>Не хотят никого обидеть</td>
+<td>Один accountable на активность</td>
+</tr>
+<tr>
+<td>Consulted и informed перепутаны</td>
+<td>Разница не обсуждалась</td>
+<td>C = двустороннее общение в ходе работы. I = одностороннее</td>
+</tr>
+</tbody>
+</table></div>
+<h2>Вопросы для обсуждения</h2>
+<ol>
+<li>Что вы понимаете под business architecture? Где в вашем проекте граница между работой business analyst и архитектора?</li>
+<li>С какой информацией бизнес-уровня вы реально работали в последнем проекте? Чего не хватало?</li>
+<li>Какими техниками вы искали stakeholders? Кого нашли поздно?</li>
+<li>Поставьте stakeholders вашего проекта в power / interest matrix. Кто получает больше внимания, чем положено по матрице? Кто меньше?</li>
+<li>Назовите driver, goal и objective вашего проекта. На каком уровне формулировка самая слабая?</li>
+<li>Какую нетипичную ответственность вы брали на себя в проекте? Было ли это записано?</li>
+<li>Какие ещё проблемы этого уровня вы встречали, кроме перечисленных в «Типовых ошибках»?</li>
+</ol>
+<h2>Подготовить к следующему модулю</h2>
+<p>К следующему модулю рекомендуется:</p>
+<ol>
+<li>Прочитать PPT-материалы модуля 3.</li>
+<li>Прочитать конспект модуля 3.</li>
+<li>Подготовить для сквозного кейса один документ:
+<ul>
+<li>Stakeholder registry: name, role, group, main concerns, views.</li>
+<li>Power / interest matrix.</li>
+<li>RACI для одной фазы проекта (например, discovery).</li>
+<li>Business drivers, goals, objectives.</li>
+<li>Functional decomposition: только основные функциональные зоны, без полного WBS.</li>
+<li>RAID.</li>
+</ul>
+</li>
+</ol>
+<p>Данных в описании кейса не хватит. Недостающее лучше записать как вопросы и как assumptions.</p>
+</main>
+<nav><a href="index.html">← Все модули</a> <a href="module-01.html">‹ Назад</a></nav>
+<script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.4.0/dist/mermaid.esm.min.mjs";
+const dark = matchMedia("(prefers-color-scheme: dark)").matches;
+mermaid.initialize({ startOnLoad: true, theme: dark ? "dark" : "default" });
+</script>
+</body>
+</html>
